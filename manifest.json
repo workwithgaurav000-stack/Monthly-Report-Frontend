@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Parwa Monthly Report",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Monthly Report",
+  "start_url": "/",
+  "theme_color": "#2563eb",
+  "id": "parwa-monthly-report"
+}
