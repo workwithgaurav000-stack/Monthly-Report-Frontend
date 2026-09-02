@@ -8,5 +8,6 @@
   "short_name": "Monthly Report",
   "start_url": "/",
   "theme_color": "#2563eb",
-  "id": "parwa-monthly-report"
+  "id": "parwa-monthly-report",
+  "description": "Parwa Monthly Data Management System for ASHA and ANM."
 }
