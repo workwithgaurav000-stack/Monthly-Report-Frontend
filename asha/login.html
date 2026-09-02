@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASHA Login | Parwa Monthly Data System</title>
+
+    <link rel="stylesheet" href="../css/login.css">
+
+    <style>
+        .login-button {
+            cursor: pointer;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8d7da;
+            color: #842029;
+            text-align: center;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #d1e7dd;
+            color: #0f5132;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-header">
+
+        <div class="icon">👩‍⚕️</div>
+
+        <h1>ASHA LOGIN</h1>
+
+        <p>आशा लॉगिन</p>
+
+        <div class="instruction">
+
+            <strong>
+                कृपया अपना Username और Password डालें।
+            </strong>
+
+            <br>
+
+            Please enter your Username and Password.
+
+        </div>
+
+    </div>
+
+
+    <form id="ashaLoginForm">
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+
+            <label for="username">
+                Username / यूज़रनेम
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="अपना Username लिखें"
+                autocomplete="username"
+                required
+            >
+
+            <div class="help-text">
+
+                ANM द्वारा दिया गया Username यहाँ लिखें।
+
+                <br>
+
+                Enter the Username given by ANM.
+
+            </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password / पासवर्ड
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="अपना Password लिखें"
+                autocomplete="current-password"
+                required
+            >
+
+            <div class="help-text">
+
+                अपना Password यहाँ लिखें।
+
+                <br>
+
+                Enter your Password here.
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGIN BUTTON -->
+
+        <button
+            type="submit"
+            class="login-button"
+        >
+
+            LOGIN
+
+            <span>
+                लॉगिन करें
+            </span>
+
+        </button>
+
+    </form>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="errorMessage"
+        class="error-message"
+    ></div>
+
+
+    <!-- SUCCESS -->
+
+    <div
+        id="successMessage"
+        class="success-message"
+    ></div>
+
+
+    <button
+        type="button"
+        class="back-button"
+        onclick="goBack()"
+    >
+
+        ← BACK / वापस जाएँ
+
+    </button>
+
+
+    <div class="footer">
+
+        <p>
+
+            Username या Password में समस्या होने पर
+            <br>
+            ANM से संपर्क करें।
+
+        </p>
+
+        <small>
+
+            If you have trouble with your Username or Password,
+            please contact your ANM.
+
+        </small>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API = "http://localhost:5000";
+
+
+// =====================================
+// ASHA LOGIN
+// =====================================
+
+document
+    .getElementById("ashaLoginForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("username")
+            .value
+            .trim();
+
+        const password =
+            document.getElementById("password")
+            .value;
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+
+        errorMessage.style.display = "none";
+        successMessage.style.display = "none";
+
+
+        try {
+
+            const response = await fetch(
+                API + "/api/asha/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                }
+            );
+
+
+            const result =
+                await response.json();
+
+
+            console.log(result);
+
+
+            if (result.success) {
+
+                // Save login
+                localStorage.setItem(
+                    "ashaLoggedIn",
+                    "true"
+                );
+
+                // Save ASHA information
+                localStorage.setItem(
+                    "ashaUser",
+                    JSON.stringify(result.user)
+                );
+
+
+                successMessage.innerHTML =
+                    "✅ Login Successful!<br>" +
+                    "लॉगिन सफल हुआ।";
+
+
+                successMessage.style.display =
+                    "block";
+
+
+                // Go to dashboard
+                setTimeout(function() {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }, 700);
+
+
+            } else {
+
+                errorMessage.innerHTML =
+                    "❌ " + result.message;
+
+                errorMessage.style.display =
+                    "block";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            errorMessage.innerHTML =
+                "❌ Backend server से connection नहीं हो पाया।" +
+                "<br><br>" +
+                "Please make sure server is running.";
+
+            errorMessage.style.display =
+                "block";
+
+        }
+
+    });
+
+
+// =====================================
+// BACK BUTTON
+// =====================================
+
+function goBack() {
+
+    window.location.href =
+        "../index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

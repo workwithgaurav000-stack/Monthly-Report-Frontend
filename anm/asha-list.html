@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASHA List | Parwa Monthly Data</title>
+
+    <link rel="stylesheet" href="../css/anm.css">
+
+    <style>
+        .page-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #176b3a;
+            margin-top: 0;
+        }
+
+        .back-button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #176b3a;
+            color: white;
+        }
+
+        .reset-button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .reset-button:hover {
+            background: #bb2d3b;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        .reset-box {
+            display: none;
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .reset-box input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .reset-submit {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cancel {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .result {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #d1e7dd;
+            color: #0f5132;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 700px) {
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <button
+        class="back-button"
+        onclick="location.href='dashboard.html'"
+    >
+        ← BACK / वापस जाएँ
+    </button>
+
+
+    <div class="card">
+
+        <h2>
+            📋 ASHA List / आशा सूची
+        </h2>
+
+        <p>
+            सभी registered ASHA की सूची।
+            <br>
+            List of all registered ASHA.
+        </p>
+
+
+        <div id="ashaList">
+            Loading...
+        </div>
+
+
+        <!-- RESET PASSWORD -->
+
+        <div
+            id="resetBox"
+            class="reset-box"
+        >
+
+            <h3>
+                🔐 Reset Password
+            </h3>
+
+            <p>
+                <strong>ASHA:</strong>
+                <span id="selectedAsha"></span>
+            </p>
+
+            <label>
+                New Password / नया पासवर्ड
+            </label>
+
+            <input
+                type="text"
+                id="newPassword"
+                placeholder="नया password डालें"
+            >
+
+            <button
+                class="reset-submit"
+                onclick="resetPassword()"
+            >
+                🔄 Reset Password
+            </button>
+
+            <button
+                class="cancel"
+                onclick="closeReset()"
+            >
+                Cancel
+            </button>
+
+
+            <div
+                id="resetResult"
+                class="result"
+            >
+
+                <strong>
+                    ✅ Password successfully reset!
+                </strong>
+
+                <br><br>
+
+                New Password:
+
+                <br>
+
+                <strong id="passwordDisplay"></strong>
+
+                <br><br>
+
+                <button onclick="copyPassword()">
+                    📋 Copy Password
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API = "http://localhost:5000";
+
+let selectedAshaId = null;
+let currentPassword = "";
+
+
+// ========================================
+// LOAD ASHA LIST
+// ========================================
+
+async function loadAshaList() {
+
+    const container =
+        document.getElementById("ashaList");
+
+    try {
+
+        const response = await fetch(
+            API + "/api/anm/asha-list"
+        );
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success ||
+            !result.asha ||
+            result.asha.length === 0
+        ) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    अभी कोई ASHA account नहीं है।
+                    <br>
+                    No ASHA account created yet.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        let html = `
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>
+                            ASHA Name
+                            <br>
+                            आशा का नाम
+                        </th>
+
+                        <th>
+                            Kendra
+                            <br>
+                            केंद्र
+                        </th>
+
+                        <th>
+                            Username
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Password
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+        `;
+
+
+        result.asha.forEach((asha, index) => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(asha.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(asha.kendraSankhya)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(asha.username)}
+                    </td>
+
+                    <td>
+                        ${
+                            asha.active
+                            ? "✅ Active"
+                            : "❌ Inactive"
+                        }
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="reset-button"
+                            onclick="openReset(
+                                '${escapeJs(asha.id)}',
+                                '${escapeJs(asha.name)}'
+                            )"
+                        >
+                            🔄 Reset
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+        html += `
+
+                </tbody>
+
+            </table>
+
+        `;
+
+
+        container.innerHTML = html;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty">
+                ❌ ASHA list load नहीं हो सकी।
+                <br>
+                Backend server check करें।
+            </div>
+        `;
+
+    }
+
+}
+
+
+// ========================================
+// OPEN RESET
+// ========================================
+
+function openReset(id, name) {
+
+    selectedAshaId = id;
+
+    document.getElementById(
+        "selectedAsha"
+    ).textContent = name;
+
+    document.getElementById(
+        "newPassword"
+    ).value = "";
+
+    document.getElementById(
+        "resetResult"
+    ).style.display = "none";
+
+    document.getElementById(
+        "resetBox"
+    ).style.display = "block";
+
+    document.getElementById(
+        "resetBox"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+// ========================================
+// CLOSE RESET
+// ========================================
+
+function closeReset() {
+
+    selectedAshaId = null;
+
+    document.getElementById(
+        "resetBox"
+    ).style.display = "none";
+
+}
+
+
+// ========================================
+// RESET PASSWORD
+// ========================================
+
+async function resetPassword() {
+
+    if (!selectedAshaId) {
+
+        alert("पहले ASHA select करें।");
+
+        return;
+    }
+
+
+    const password =
+        document.getElementById(
+            "newPassword"
+        ).value.trim();
+
+
+    if (!password) {
+
+        alert("नया password डालें।");
+
+        return;
+    }
+
+
+    if (password.length < 4) {
+
+        alert(
+            "Password कम से कम 4 characters का होना चाहिए।"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            API + "/api/anm/reset-asha-password",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    ashaId: selectedAshaId,
+
+                    newPassword: password
+
+                })
+
+            }
+        );
+
+
+        const result =
+            await response.json();
+
+
+        if (result.success) {
+
+            currentPassword = password;
+
+            document.getElementById(
+                "passwordDisplay"
+            ).textContent = password;
+
+            document.getElementById(
+                "resetResult"
+            ).style.display = "block";
+
+        } else {
+
+            alert(
+                "❌ " + result.message
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Password reset नहीं हो पाया।\n\n" +
+            "Backend में reset API अभी नहीं है।"
+        );
+
+    }
+
+}
+
+
+// ========================================
+// COPY PASSWORD
+// ========================================
+
+async function copyPassword() {
+
+    try {
+
+        await navigator.clipboard.writeText(
+            currentPassword
+        );
+
+        alert(
+            "✅ Password copied!"
+        );
+
+    } catch (error) {
+
+        alert(
+            "Password: " + currentPassword
+        );
+
+    }
+
+}
+
+
+// ========================================
+// SECURITY
+// ========================================
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeJs(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\r/g, "\\r")
+        .replace(/\n/g, "\\n");
+
+}
+
+
+// START
+
+loadAshaList();
+
+</script>
+
+</body>
+
+</html>

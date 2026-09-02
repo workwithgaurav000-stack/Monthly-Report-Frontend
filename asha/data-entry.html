@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Monthly Data Entry | PARWA</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef7ff,
+                    #ffffff
+                );
+
+            color: #222;
+
+        }
+
+        .container {
+
+            max-width: 850px;
+
+            margin: 30px auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.10);
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #1769aa;
+
+            margin-bottom: 5px;
+
+        }
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #666;
+
+            margin-bottom: 25px;
+
+        }
+
+        .info-box {
+
+            background: #eef7ff;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .info-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+
+        }
+
+        .field {
+
+            margin-bottom: 20px;
+
+        }
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+        }
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+        }
+
+        input[readonly] {
+
+            background: #f2f2f2;
+
+        }
+
+        .help {
+
+            margin-top: 5px;
+
+            font-size: 13px;
+
+            color: #666;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 25px;
+
+        }
+
+        button {
+
+            flex: 1;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .review-btn {
+
+            background: #1769aa;
+
+            color: white;
+
+        }
+
+        .back-btn {
+
+            background: #ddd;
+
+            color: #222;
+
+        }
+
+        .review {
+
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f8fbff;
+
+            border-radius: 12px;
+
+        }
+
+        .review h2 {
+
+            color: #1769aa;
+
+        }
+
+        .review-row {
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid #ddd;
+
+        }
+
+        .confirm {
+
+            background: #16803c;
+
+            color: white;
+
+            margin-top: 20px;
+
+        }
+
+        .edit {
+
+            background: #777;
+
+            color: white;
+
+            margin-top: 10px;
+
+        }
+
+        @media(max-width:600px) {
+
+            .container {
+
+                margin: 10px;
+
+                padding: 20px;
+
+            }
+
+            .info-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        Monthly Data Entry
+    </h1>
+
+    <div class="subtitle">
+        मासिक डेटा प्रविष्टि
+    </div>
+
+    <!-- ASHA INFORMATION -->
+
+    <div class="info-box">
+
+        <div class="info-row">
+
+            <div>
+
+                <strong>
+                    ASHA Name / आशा का नाम
+                </strong>
+
+                <div id="ashaName">
+                    Loading...
+                </div>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Kendra Sankhya / केंद्र संख्या
+                </strong>
+
+                <div id="kendraSankhya">
+                    Loading...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form id="dataForm">
+
+        <div class="info-row">
+
+            <div class="field">
+
+                <label>
+                    Reporting Month / रिपोर्टिंग माह
+                </label>
+
+                <select id="month" required>
+
+                    <option value="">
+                        Select Month / माह चुनें
+                    </option>
+
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+
+                </select>
+
+                <div class="help">
+                    जिस महीने का डेटा भर रहे हैं, वह महीना चुनें।
+                    Select the month for which you are entering data.
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Year / वर्ष
+                </label>
+
+                <select id="year" required>
+
+                </select>
+
+                <div class="help">
+                    डेटा का वर्ष चुनें।
+                    Select the reporting year.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <div class="field">
+
+            <label>
+                Date of Entry / डेटा भरने की तारीख
+            </label>
+
+            <input
+                type="text"
+                id="entryDate"
+                readonly
+            >
+
+            <div class="help">
+                यह तारीख अपने आप भर जाएगी।
+                This date is automatically generated.
+            </div>
+
+        </div>
+
+
+        <!-- HBNC -->
+
+        <div class="field">
+
+            <label>
+                Total No. of HBNC
+            </label>
+
+            <input
+                type="number"
+                id="hbnc"
+                min="0"
+                required
+            >
+
+            <div class="help">
+                HBNC की कुल संख्या दर्ज करें।
+                Enter the total number of HBNC.
+            </div>
+
+        </div>
+
+
+        <!-- HBVC -->
+
+        <div class="field">
+
+            <label>
+                Total No. of HBVC
+            </label>
+
+            <input
+                type="number"
+                id="hbvc"
+                min="0"
+                required
+            >
+
+            <div class="help">
+                HBVC की कुल संख्या दर्ज करें।
+                Enter the total number of HBVC.
+            </div>
+
+        </div>
+
+
+        <!-- TB -->
+
+        <div class="field">
+
+            <label>
+                Total No. of TB Patients
+            </label>
+
+            <input
+                type="number"
+                id="tb"
+                min="0"
+                required
+            >
+
+            <div class="help">
+                TB मरीजों की कुल संख्या दर्ज करें।
+                Enter the total number of TB patients.
+            </div>
+
+        </div>
+
+
+        <!-- ANTRA -->
+
+        <div class="field">
+
+            <label>
+                Total No. of ANTRA
+            </label>
+
+            <input
+                type="number"
+                id="antra"
+                min="0"
+                required
+            >
+
+            <div class="help">
+                ANTRA की कुल संख्या दर्ज करें।
+                Enter the total number of ANTRA.
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="goBack()">
+
+                Back / वापस
+
+            </button>
+
+            <button
+                type="button"
+                class="review-btn"
+                onclick="showReview()">
+
+                Review Data / डेटा देखें
+
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <!-- REVIEW -->
+
+    <div
+        id="review"
+        class="review">
+
+        <h2>
+            Review Your Data
+        </h2>
+
+        <p>
+            कृपया Submit करने से पहले डेटा जांच लें।
+            Please check your data before submitting.
+        </p>
+
+
+        <div class="review-row">
+
+            <strong>
+                ASHA Name:
+            </strong>
+
+            <span id="reviewName"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                Kendra Sankhya:
+            </strong>
+
+            <span id="reviewKendra"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                Month:
+            </strong>
+
+            <span id="reviewMonth"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                Year:
+            </strong>
+
+            <span id="reviewYear"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                Date:
+            </strong>
+
+            <span id="reviewDate"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                HBNC:
+            </strong>
+
+            <span id="reviewHBNC"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                HBVC:
+            </strong>
+
+            <span id="reviewHBVC"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                TB Patients:
+            </strong>
+
+            <span id="reviewTB"></span>
+
+        </div>
+
+
+        <div class="review-row">
+
+            <strong>
+                ANTRA:
+            </strong>
+
+            <span id="reviewANTRA"></span>
+
+        </div>
+
+
+        <button
+            class="confirm"
+            onclick="submitData()">
+
+            Confirm & Submit
+            / पुष्टि करें और जमा करें
+
+        </button>
+
+
+        <button
+            class="edit"
+            onclick="editData()">
+
+            Edit Data / डेटा बदलें
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // CHECK LOGIN
+    // ==========================================
+
+    const loggedIn =
+        localStorage.getItem(
+            "ashaLoggedIn"
+        );
+
+    if (loggedIn !== "true") {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    // ==========================================
+    // GET ASHA USER
+    // ==========================================
+
+    const userJSON =
+        localStorage.getItem(
+            "ashaUser"
+        );
+
+    let ashaUser = null;
+
+    try {
+
+        ashaUser =
+            JSON.parse(userJSON);
+
+    } catch (error) {
+
+        ashaUser = null;
+
+    }
+
+
+    if (!ashaUser) {
+
+        alert(
+            "ASHA login information not found."
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    // ==========================================
+    // DISPLAY ASHA INFORMATION
+    // ==========================================
+
+    document.getElementById(
+        "ashaName"
+    ).textContent =
+        ashaUser.name || "-";
+
+
+    document.getElementById(
+        "kendraSankhya"
+    ).textContent =
+        ashaUser.kendraSankhya || "-";
+
+
+    // ==========================================
+    // DATE
+    // ==========================================
+
+    const today =
+        new Date();
+
+    const formattedDate =
+        today.toLocaleDateString(
+            "en-IN"
+        );
+
+    document.getElementById(
+        "entryDate"
+    ).value =
+        formattedDate;
+
+
+    // ==========================================
+    // YEAR DROPDOWN
+    // ==========================================
+
+    const yearSelect =
+        document.getElementById(
+            "year"
+        );
+
+    const currentYear =
+        today.getFullYear();
+
+    for (
+        let year = currentYear - 2;
+        year <= currentYear + 2;
+        year++
+    ) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            year;
+
+        option.textContent =
+            year;
+
+        if (
+            year === currentYear
+        ) {
+
+            option.selected =
+                true;
+
+        }
+
+        yearSelect.appendChild(
+            option
+        );
+
+    }
+
+
+    // ==========================================
+    // SHOW REVIEW
+    // ==========================================
+
+    function showReview() {
+
+        const form =
+            document.getElementById(
+                "dataForm"
+            );
+
+        if (!form.checkValidity()) {
+
+            form.reportValidity();
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "reviewName"
+        ).textContent =
+            ashaUser.name;
+
+
+        document.getElementById(
+            "reviewKendra"
+        ).textContent =
+            ashaUser.kendraSankhya;
+
+
+        document.getElementById(
+            "reviewMonth"
+        ).textContent =
+            document.getElementById(
+                "month"
+            ).value;
+
+
+        document.getElementById(
+            "reviewYear"
+        ).textContent =
+            document.getElementById(
+                "year"
+            ).value;
+
+
+        document.getElementById(
+            "reviewDate"
+        ).textContent =
+            document.getElementById(
+                "entryDate"
+            ).value;
+
+
+        document.getElementById(
+            "reviewHBNC"
+        ).textContent =
+            document.getElementById(
+                "hbnc"
+            ).value;
+
+
+        document.getElementById(
+            "reviewHBVC"
+        ).textContent =
+            document.getElementById(
+                "hbvc"
+            ).value;
+
+
+        document.getElementById(
+            "reviewTB"
+        ).textContent =
+            document.getElementById(
+                "tb"
+            ).value;
+
+
+        document.getElementById(
+            "reviewANTRA"
+        ).textContent =
+            document.getElementById(
+                "antra"
+            ).value;
+
+
+        document.getElementById(
+            "review"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "review"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    // ==========================================
+    // EDIT
+    // ==========================================
+
+    function editData() {
+
+        document.getElementById(
+            "review"
+        ).style.display =
+            "none";
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+    // ==========================================
+    // SUBMIT DATA TO BACKEND
+    // ==========================================
+
+    async function submitData() {
+
+        const month =
+            document.getElementById(
+                "month"
+            ).value;
+
+        const year =
+            document.getElementById(
+                "year"
+            ).value;
+
+        const hbnc =
+            document.getElementById(
+                "hbnc"
+            ).value;
+
+        const hbvc =
+            document.getElementById(
+                "hbvc"
+            ).value;
+
+        const tb =
+            document.getElementById(
+                "tb"
+            ).value;
+
+        const antra =
+            document.getElementById(
+                "antra"
+            ).value;
+
+        const entryDate =
+            document.getElementById(
+                "entryDate"
+            ).value;
+
+
+        if (!month) {
+
+            alert(
+                "Please select month."
+            );
+
+            return;
+
+        }
+
+
+        // Disable button while submitting
+
+        const button =
+            document.querySelector(
+                ".confirm"
+            );
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Submitting...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/asha/monthly-data",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                ashaId:
+                                    ashaUser.id,
+
+                                name:
+                                    ashaUser.name,
+
+                                kendraSankhya:
+                                    ashaUser.kendraSankhya,
+
+                                month:
+                                    month,
+
+                                year:
+                                    year,
+
+                                hbnc:
+                                    hbnc,
+
+                                hbvc:
+                                    hbvc,
+
+                                tb:
+                                    tb,
+
+                                antra:
+                                    antra,
+
+                                entryDate:
+                                    entryDate
+
+                            })
+
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (result.success) {
+
+                alert(
+                    "Data Submitted Successfully!\n\nडेटा सफलतापूर्वक जमा हो गया।"
+                );
+
+                window.location.href =
+                    "success.html";
+
+            } else {
+
+                alert(
+                    result.message ||
+                    "Data submit नहीं हुआ."
+                );
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    "Confirm & Submit / पुष्टि करें और जमा करें";
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Backend server से connection नहीं हो पाया.\n\nकृपया check करें कि server चल रहा है।"
+            );
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Confirm & Submit / पुष्टि करें और जमा करें";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BACK
+    // ==========================================
+
+    function goBack() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>

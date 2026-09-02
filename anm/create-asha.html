@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create ASHA | Parwa Monthly Data</title>
+
+    <link rel="stylesheet" href="../css/anm.css">
+
+    <style>
+
+        .page-container {
+
+            max-width: 700px;
+
+            margin: 30px auto;
+
+            padding: 20px;
+
+        }
+
+
+        .form-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
+
+        }
+
+
+        .form-card h2 {
+
+            margin-top: 0;
+
+            color: #176b3a;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .help-text {
+
+            font-size: 13px;
+
+            color: #666;
+
+            margin-top: 6px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .save-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #198754;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .save-button:hover {
+
+            background: #146c43;
+
+        }
+
+
+        .message {
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            display: none;
+
+        }
+
+
+        .success {
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+        }
+
+
+        .error {
+
+            background: #f8d7da;
+
+            color: #842029;
+
+        }
+
+
+        .back-button {
+
+            margin-bottom: 20px;
+
+            padding: 10px 18px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page-container">
+
+
+    <button
+        class="back-button"
+        onclick="location.href='dashboard.html'"
+    >
+        ← BACK / वापस जाएँ
+    </button>
+
+
+    <div class="form-card">
+
+
+        <h2>
+            👩‍⚕️ Create ASHA Account
+        </h2>
+
+
+        <p>
+
+            नई ASHA का account बनाने के लिए
+            नीचे की जानकारी भरें।
+
+            <br><br>
+
+            Fill the details below to create a new ASHA account.
+
+        </p>
+
+
+        <form id="createAshaForm">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    ASHA Name / आशा का नाम
+                </label>
+
+                <input
+                    type="text"
+                    id="ashaName"
+                    placeholder="ASHA का पूरा नाम"
+                    required
+                >
+
+                <div class="help-text">
+
+                    ASHA का पूरा नाम यहाँ लिखें।
+
+                    <br>
+
+                    Enter the full name of the ASHA.
+
+                </div>
+
+            </div>
+
+
+            <!-- KENDRA -->
+
+            <div class="form-group">
+
+                <label>
+                    Kendra Sankhya / केंद्र संख्या
+                </label>
+
+                <input
+                    type="text"
+                    id="kendraSankhya"
+                    placeholder="केंद्र संख्या"
+                    required
+                >
+
+                <div class="help-text">
+
+                    इस ASHA से संबंधित केंद्र संख्या लिखें।
+
+                    <br>
+
+                    Enter the Kendra number assigned to this ASHA.
+
+                </div>
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Username / यूज़रनेम
+                </label>
+
+                <input
+                    type="text"
+                    id="ashaUsername"
+                    placeholder="ASHA Username"
+                    required
+                >
+
+                <div class="help-text">
+
+                    ASHA login करने के लिए यह Username इस्तेमाल करेगी।
+
+                    <br>
+
+                    This Username will be used by the ASHA to login.
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label>
+                    Password / पासवर्ड
+                </label>
+
+                <input
+                    type="password"
+                    id="ashaPassword"
+                    placeholder="ASHA Password"
+                    required
+                >
+
+                <div class="help-text">
+
+                    ASHA को यह Password दें।
+
+                    <br>
+
+                    Give this Password to the ASHA.
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-button"
+            >
+                SAVE ASHA / ASHA SAVE करें
+            </button>
+
+
+        </form>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+const API = "http://localhost:5000";
+
+
+document
+    .getElementById("createAshaForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById("ashaName")
+                    .value
+                    .trim();
+
+
+            const kendraSankhya =
+                document
+                    .getElementById("kendraSankhya")
+                    .value
+                    .trim();
+
+
+            const username =
+                document
+                    .getElementById("ashaUsername")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("ashaPassword")
+                    .value;
+
+
+            const message =
+                document.getElementById("message");
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        API + "/api/anm/create-asha",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    name:
+                                        name,
+
+                                    kendraSankhya:
+                                        kendraSankhya,
+
+                                    username:
+                                        username,
+
+                                    password:
+                                        password
+
+                                })
+
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (result.success) {
+
+
+                    message.style.display =
+                        "block";
+
+
+                    message.className =
+                        "message success";
+
+
+                    message.innerHTML =
+                        "✅ ASHA account successfully created!" +
+                        "<br>" +
+                        "ASHA account सफलतापूर्वक बना दिया गया।";
+
+
+                    document
+                        .getElementById(
+                            "createAshaForm"
+                        )
+                        .reset();
+
+
+                } else {
+
+
+                    message.style.display =
+                        "block";
+
+
+                    message.className =
+                        "message error";
+
+
+                    message.innerHTML =
+                        "❌ " +
+                        result.message;
+
+
+                }
+
+
+            } catch (error) {
+
+
+                console.error(error);
+
+
+                message.style.display =
+                    "block";
+
+
+                message.className =
+                    "message error";
+
+
+                message.innerHTML =
+                    "❌ Backend server से connection नहीं हो पाया।" +
+                    "<br>" +
+                    "Please make sure server is running.";
+
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

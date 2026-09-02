@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ANM Dashboard | Parwa Monthly Data</title>
+
+    <link rel="stylesheet" href="../css/anm.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div>
+        <h1>ANM Dashboard</h1>
+        <p>एएनएम डैशबोर्ड</p>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">
+        Logout / लॉगआउट
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <section class="welcome-card">
+
+        <h2>Welcome, ANM 👩‍⚕️</h2>
+
+        <p>
+            यहाँ से आप ASHA accounts और monthly data manage कर सकती हैं।
+        </p>
+
+        <p>
+            From here, you can manage ASHA accounts and monthly data.
+        </p>
+
+    </section>
+
+
+    <section class="menu-grid">
+
+
+        <!-- CREATE ASHA -->
+
+        <div class="menu-card">
+
+            <div class="icon">➕</div>
+
+            <h2>
+                Create ASHA
+                <span>आशा बनाएं</span>
+            </h2>
+
+            <p>
+                नई ASHA का account बनाएं।
+            </p>
+
+            <p>
+                Create a new ASHA account.
+            </p>
+
+            <button onclick="location.href='create-asha.html'">
+                Create ASHA / आशा बनाएं
+            </button>
+
+        </div>
+
+
+        <!-- ASHA LIST -->
+
+        <div class="menu-card">
+
+            <div class="icon">📋</div>
+
+            <h2>
+                View ASHA List
+                <span>आशा सूची देखें</span>
+            </h2>
+
+            <p>
+                सभी registered ASHA की सूची देखें और password reset करें।
+            </p>
+
+            <p>
+                View ASHA list and reset password.
+            </p>
+
+            <button onclick="location.href='asha-list.html'">
+                View List / सूची देखें
+            </button>
+
+        </div>
+
+
+        <!-- MONTHLY DATA -->
+
+        <div class="menu-card">
+
+            <div class="icon">📊</div>
+
+            <h2>
+                Monthly Data
+                <span>मासिक डेटा</span>
+            </h2>
+
+            <p>
+                ASHA द्वारा जमा किया गया monthly data देखें।
+            </p>
+
+            <p>
+                View submitted monthly data.
+            </p>
+
+            <button onclick="location.href='view-data.html'">
+                View Data / डेटा देखें
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+    <section class="info-card">
+
+        <h2>Important / महत्वपूर्ण</h2>
+
+        <p>
+            नई ASHA बनाने के लिए Create ASHA option का इस्तेमाल करें।
+        </p>
+
+        <p>
+            ASHA का password भूल जाने पर ASHA List में जाकर
+            Reset Password किया जा सकता है।
+        </p>
+
+    </section>
+
+</main>
+
+
+<script>
+
+function logout() {
+
+    localStorage.removeItem("anmLoggedIn");
+    localStorage.removeItem("anmUser");
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

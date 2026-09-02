@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        View ASHA Data | PARWA
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef7ff,
+                    #ffffff
+                );
+
+            min-height: 100vh;
+
+            padding: 20px;
+
+        }
+
+        .container {
+
+            max-width: 950px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.10);
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #1769aa;
+
+            margin-bottom: 5px;
+
+        }
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #666;
+
+            margin-bottom: 30px;
+
+        }
+
+        .filters {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .field label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+        }
+
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+
+        }
+
+        button {
+
+            flex: 1;
+
+            border: none;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .view-btn {
+
+            background: #1769aa;
+
+            color: white;
+
+        }
+
+        .back-btn {
+
+            background: #ddd;
+
+            color: #222;
+
+        }
+
+        .result {
+
+            display: none;
+
+        }
+
+        .success {
+
+            background: #eaf8ef;
+
+            border:
+                1px solid #8bd5a5;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+        }
+
+        .not-found {
+
+            background: #fff4e5;
+
+            border:
+                1px solid #ffc46b;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+        }
+
+        .data-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+        .data-card {
+
+            background: #f7faff;
+
+            border:
+                1px solid #dcecff;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+        }
+
+        .data-card .label {
+
+            color: #666;
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .data-card .value {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #1769aa;
+
+        }
+
+        .status {
+
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 8px 15px;
+
+            background: #16803c;
+
+            color: white;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+        }
+
+        @media(max-width:700px) {
+
+            .filters {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .data-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+            .container {
+
+                padding: 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        View ASHA Monthly Data
+    </h1>
+
+    <div class="subtitle">
+        आशा का मासिक डेटा देखें
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <!-- MONTH -->
+
+        <div class="field">
+
+            <label>
+                Month / माह
+            </label>
+
+            <select id="month">
+
+                <option value="">
+                    Select Month / माह चुनें
+                </option>
+
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- YEAR -->
+
+        <div class="field">
+
+            <label>
+                Year / वर्ष
+            </label>
+
+            <select id="year">
+
+            </select>
+
+        </div>
+
+
+        <!-- ASHA -->
+
+        <div class="field">
+
+            <label>
+                ASHA / आशा
+            </label>
+
+            <select id="asha">
+
+                <option value="">
+                    Loading...
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <button
+            class="back-btn"
+            onclick="goBack()">
+
+            Back / वापस
+
+        </button>
+
+        <button
+            class="view-btn"
+            onclick="viewData()">
+
+            View Data / डेटा देखें
+
+        </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+        id="result"
+        class="result">
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // YEAR DROPDOWN
+    // ==========================================
+
+    const yearSelect =
+        document.getElementById(
+            "year"
+        );
+
+    const currentYear =
+        new Date().getFullYear();
+
+    for (
+        let year = currentYear - 2;
+        year <= currentYear + 2;
+        year++
+    ) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            year;
+
+        option.textContent =
+            year;
+
+        if (
+            year === currentYear
+        ) {
+
+            option.selected =
+                true;
+
+        }
+
+        yearSelect.appendChild(
+            option
+        );
+
+    }
+
+
+    // ==========================================
+    // LOAD ASHA LIST
+    // ==========================================
+
+    async function loadASHA() {
+
+        const ashaSelect =
+            document.getElementById(
+                "asha"
+            );
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/anm/asha-list"
+                );
+
+            const result =
+                await response.json();
+
+
+            if (!result.success) {
+
+                ashaSelect.innerHTML =
+                    `<option value="">
+                        ASHA list not found
+                    </option>`;
+
+                return;
+
+            }
+
+
+            ashaSelect.innerHTML =
+                `<option value="">
+                    Select ASHA / आशा चुनें
+                </option>`;
+
+
+            result.users.forEach(
+                user => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        user.id;
+
+                    option.textContent =
+                        `${user.name} - Kendra ${user.kendraSankhya}`;
+
+                    ashaSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            ashaSelect.innerHTML =
+                `<option value="">
+                    Backend connection failed
+                </option>`;
+
+        }
+
+    }
+
+
+    // Load ASHA list
+    loadASHA();
+
+
+    // ==========================================
+    // VIEW DATA
+    // ==========================================
+
+    async function viewData() {
+
+        const month =
+            document.getElementById(
+                "month"
+            ).value;
+
+        const year =
+            document.getElementById(
+                "year"
+            ).value;
+
+        const ashaId =
+            document.getElementById(
+                "asha"
+            ).value;
+
+
+        if (!month) {
+
+            alert(
+                "Please select month / कृपया माह चुनें"
+            );
+
+            return;
+
+        }
+
+
+        if (!year) {
+
+            alert(
+                "Please select year / कृपया वर्ष चुनें"
+            );
+
+            return;
+
+        }
+
+
+        if (!ashaId) {
+
+            alert(
+                "Please select ASHA / कृपया ASHA चुनें"
+            );
+
+            return;
+
+        }
+
+
+        const resultBox =
+            document.getElementById(
+                "result"
+            );
+
+
+        resultBox.style.display =
+            "block";
+
+
+        resultBox.innerHTML =
+
+            `<div class="not-found">
+                Loading data...
+                <br>
+                डेटा लोड हो रहा है...
+            </div>`;
+
+
+        try {
+
+            const url =
+                "http://localhost:5000/api/anm/monthly-data" +
+                "?month=" +
+                encodeURIComponent(month) +
+                "&year=" +
+                encodeURIComponent(year) +
+                "&ashaId=" +
+                encodeURIComponent(ashaId);
+
+
+            const response =
+                await fetch(url);
+
+
+            const result =
+                await response.json();
+
+
+            // ==================================
+            // DATA NOT FOUND
+            // ==================================
+
+            if (
+                result.success &&
+                result.found === false
+            ) {
+
+                resultBox.innerHTML =
+
+                    `<div class="not-found">
+
+                        ❌ Data Not Submitted
+
+                        <br>
+
+                        डेटा जमा नहीं किया गया
+
+                        <br><br>
+
+                        <small>
+                            ${month} ${year}
+                        </small>
+
+                    </div>`;
+
+                return;
+
+            }
+
+
+            // ==================================
+            // DATA FOUND
+            // ==================================
+
+            if (
+                result.success &&
+                result.found === true
+            ) {
+
+                const data =
+                    result.data;
+
+
+                resultBox.innerHTML =
+
+                    `<div class="success">
+
+                        <h2>
+                            Monthly Data
+                            / मासिक डेटा
+                        </h2>
+
+                        <div class="data-grid">
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    ASHA Name
+                                    / आशा का नाम
+                                </div>
+
+                                <div class="value">
+                                    ${data.ashaName}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    Kendra Sankhya
+                                    / केंद्र संख्या
+                                </div>
+
+                                <div class="value">
+                                    ${data.kendraSankhya}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    Reporting Month
+                                    / रिपोर्टिंग माह
+                                </div>
+
+                                <div class="value">
+                                    ${data.month}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    Year / वर्ष
+                                </div>
+
+                                <div class="value">
+                                    ${data.year}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    HBNC
+                                </div>
+
+                                <div class="value">
+                                    ${data.hbnc}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    HBVC
+                                </div>
+
+                                <div class="value">
+                                    ${data.hbvc}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    TB Patients
+                                </div>
+
+                                <div class="value">
+                                    ${data.tb}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    ANTRA
+                                </div>
+
+                                <div class="value">
+                                    ${data.antra}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    Date of Entry
+                                    / डेटा भरने की तारीख
+                                </div>
+
+                                <div class="value">
+                                    ${data.entryDate || "-"}
+                                </div>
+
+                            </div>
+
+
+                            <div class="data-card">
+
+                                <div class="label">
+                                    Submitted At
+                                    / जमा करने का समय
+                                </div>
+
+                                <div class="value">
+
+                                    ${data.submittedAt
+                                        ? new Date(
+                                            data.submittedAt
+                                        ).toLocaleString(
+                                            "en-IN"
+                                        )
+                                        : "-"
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="status">
+
+                            ✓ Submitted
+                            / जमा किया गया
+
+                        </div>
+
+                    </div>`;
+
+                return;
+
+            }
+
+
+            // ==================================
+            // ERROR
+            // ==================================
+
+            resultBox.innerHTML =
+
+                `<div class="not-found">
+
+                    ❌
+                    ${result.message ||
+                    "Unable to load data."}
+
+                </div>`;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            resultBox.innerHTML =
+
+                `<div class="not-found">
+
+                    ❌ Backend connection failed.
+
+                    <br>
+
+                    Backend server check करें।
+
+                </div>`;
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BACK
+    // ==========================================
+
+    function goBack() {
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>

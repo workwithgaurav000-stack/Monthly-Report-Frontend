@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASHA Monthly Data System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="header">
+            <h1>ASHA Monthly Data System</h1>
+            <p>आशा मासिक डेटा प्रणाली</p>
+
+            <div class="instruction">
+                <strong>कृपया अपना Login Type चुनें</strong><br>
+                Please select your login type
+            </div>
+        </div>
+
+
+        <div class="login-options">
+
+            <!-- ASHA LOGIN -->
+            <div class="login-card asha-card">
+
+                <div class="icon">👩‍⚕️</div>
+
+                <h2>ASHA LOGIN</h2>
+                <p>आशा लॉगिन</p>
+
+                <div class="card-text">
+                    आशा कार्यकर्ता के लिए<br>
+                    For ASHA Worker
+                </div>
+
+                <button onclick="goToASHA()">
+                    ASHA LOGIN
+                    <span>आशा लॉगिन</span>
+                </button>
+
+            </div>
+
+
+            <!-- ANM LOGIN -->
+            <div class="login-card anm-card">
+
+                <div class="icon">👩‍⚕️</div>
+
+                <h2>ANM LOGIN</h2>
+                <p>एएनएम लॉगिन</p>
+
+                <div class="card-text">
+                    ANM / Administrator के लिए<br>
+                    For ANM / Administrator
+                </div>
+
+                <button onclick="goToANM()">
+                    ANM LOGIN
+                    <span>एएनएम लॉगिन</span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+            <p>
+                कृपया सही Login विकल्प चुनें।
+                <br>
+                Please select the correct login option.
+            </p>
+
+            <small>
+                ASHA Monthly Data System
+            </small>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function goToASHA() {
+            window.location.href = "asha/login.html";
+        }
+
+        function goToANM() {
+            window.location.href = "anm/login.html";
+        }
+
+    </script>
+
+</body>
+</html>

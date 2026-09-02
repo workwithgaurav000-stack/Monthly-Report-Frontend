@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ANM Login | ASHA Monthly Data System</title>
+
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-header">
+
+            <div class="icon">👩‍⚕️</div>
+
+            <h1>ANM LOGIN</h1>
+
+            <p>एएनएम लॉगिन</p>
+
+            <div class="instruction">
+                <strong>
+                    कृपया अपना Username और Password डालें।
+                </strong>
+                <br>
+                Please enter your Username and Password.
+            </div>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form id="anmLoginForm">
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username / यूज़रनेम
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="अपना Username लिखें"
+                    autocomplete="username"
+                    required
+                >
+
+                <div class="help-text">
+                    ANM को दिया गया Username यहाँ लिखें।
+                    <br>
+                    Enter your assigned Username here.
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password / पासवर्ड
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="अपना Password लिखें"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <div class="help-text">
+                    अपना Password यहाँ लिखें।
+                    <br>
+                    Enter your Password here.
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="login-button anm-login-button"
+            >
+
+                LOGIN
+
+                <span>
+                    लॉगिन करें
+                </span>
+
+            </button>
+
+        </form>
+
+
+        <!-- BACK BUTTON -->
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="goBack()"
+        >
+            ← BACK / वापस जाएँ
+        </button>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            <p>
+                Username या Password में समस्या होने पर
+                <br>
+                system administrator से संपर्क करें।
+            </p>
+
+            <small>
+                If you have trouble with your Username or Password,
+                please contact the system administrator.
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // ==========================================
+        // ANM LOGIN
+        // ==========================================
+
+        document
+            .getElementById("anmLoginForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const username =
+                    document
+                        .getElementById("username")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                try {
+
+                    const response = await fetch(
+                        "http://localhost:5000/api/anm/login",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                username: username,
+                                password: password
+                            })
+                        }
+                    );
+
+
+                    const result =
+                        await response.json();
+
+
+                    console.log(result);
+
+
+                    if (result.success) {
+
+                        localStorage.setItem(
+                            "anmLoggedIn",
+                            "true"
+                        );
+
+                        localStorage.setItem(
+                            "anmUser",
+                            JSON.stringify(result.user)
+                        );
+
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    } else {
+
+                        alert(result.message);
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Server से connection नहीं हो पाया।\n\n" +
+                        "Please make sure backend server is running."
+                    );
+
+                }
+
+            });
+
+
+        // ==========================================
+        // BACK BUTTON
+        // ==========================================
+
+        function goBack() {
+
+            window.location.href =
+                "../index.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+
