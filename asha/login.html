@@ -110,6 +110,14 @@
                 required
             >
 
+            <label class="show-password">
+                <input
+                    type="checkbox"
+                    id="showPassword"
+                >
+                Show password / पासवर्ड दिखाएँ
+            </label>
+
             <div class="help-text">
 
                 अपना Password यहाँ लिखें।
@@ -191,6 +199,14 @@
 
 
 <script>
+
+document
+    .getElementById("showPassword")
+    .addEventListener("change", function() {
+        document
+            .getElementById("password")
+            .type = this.checked ? "text" : "password";
+    });
 
  const API = "https://monthly-report-backend-1.onrender.com";
 

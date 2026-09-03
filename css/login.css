@@ -132,6 +132,24 @@ body {
         0 0 0 3px rgba(25, 118, 210, 0.12);
 }
 
+.show-password {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    color: #555 !important;
+    cursor: pointer;
+}
+
+.show-password input[type="checkbox"] {
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0;
+    accent-color: #1976d2;
+}
+
 
 .help-text {
     margin-top: 7px;
