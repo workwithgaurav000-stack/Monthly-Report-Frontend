@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Submitted Successfully | Monthly Report</title>
+
+    <!-- HTML2Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #eef2f7;
+            font-family:
+                "Noto Sans Devanagari",
+                "Nirmala UI",
+                "Mangal",
+                Arial,
+                sans-serif;
+            color: #222;
+        }
+
+        /* =========================
+           BUTTON AREA
+        ========================= */
+
+        .buttons {
+            max-width: 850px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .buttons button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .download-btn {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .print-btn {
+            background: #198754;
+            color: white;
+        }
+
+        .dashboard-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .buttons button:hover {
+            opacity: 0.9;
+        }
+
+        /* =========================
+           A4 REPORT
+        ========================= */
+
+        #report {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 12mm;
+            background: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        .header h2 {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .header p {
+            margin: 3px 0;
+            font-size: 12px;
+        }
+
+        /* =========================
+           SUCCESS MESSAGE
+        ========================= */
+
+        .success-message {
+            text-align: center;
+            padding: 8px;
+            margin-bottom: 12px;
+            background: #e8f7ee;
+            border: 1px solid #9fd5b3;
+            color: #146c43;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        /* =========================
+           BASIC INFORMATION
+        ========================= */
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .info-table td {
+            border: 1px solid #777;
+            padding: 6px;
+            font-size: 12px;
+        }
+
+        .info-label {
+            background: #f1f1f1;
+            font-weight: bold;
+            width: 18%;
+        }
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
+
+        .section-title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            background: #e9ecef;
+            border: 1px solid #777;
+            padding: 6px;
+            margin-top: 8px;
+        }
+
+        /* =========================
+           DATA TABLE
+        ========================= */
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #777;
+            padding: 5px 6px;
+            font-size: 11px;
+        }
+
+        .data-table th {
+            text-align: center;
+            background: #f1f1f1;
+        }
+
+        .data-table td:first-child {
+            width: 78%;
+        }
+
+        .number {
+            text-align: center;
+            width: 22%;
+            font-weight: bold;
+        }
+
+        /* =========================
+           TOTAL
+        ========================= */
+
+        .total-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .total-table td {
+            border: 1px solid #555;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            background: #e9ecef;
+        }
+
+        .total-number {
+            text-align: center;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .signature {
+            width: 180px;
+            text-align: center;
+            padding-top: 28px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #333;
+            padding-top: 5px;
+        }
+
+        /* =========================
+           NO DATA
+        ========================= */
+
+        .no-data {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 30px;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 8px;
+            }
+
+            #report {
+                width: 100%;
+                min-height: auto;
+                padding: 15px;
+            }
+
+            .data-table th,
+            .data-table td {
+                font-size: 10px;
+            }
+
+            .info-table td {
+                font-size: 10px;
+            }
+
+            .header h1 {
+                font-size: 19px;
+            }
+
+            .header h2 {
+                font-size: 15px;
+            }
+        }
+
+        /* =========================
+           PRINT
+        ========================= */
+
+        @media print {
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .buttons {
+                display: none;
+            }
+
+            #report {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0;
+                padding: 12mm;
+                box-shadow: none;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         BUTTONS
+    ========================= -->
+
+    <div class="buttons">
+
+        <button
+            class="download-btn"
+            onclick="downloadPhoto()">
+
+            📸 Download Report Photo
+
+        </button>
+
+
+        <button
+            class="print-btn"
+            onclick="window.print()">
+
+            🖨️ Print / Save
+
+        </button>
+
+
+        <button
+            class="dashboard-btn"
+            onclick="goDashboard()">
+
+            🏠 Dashboard
+
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         A4 REPORT
+    ========================= -->
+
+    <div id="report">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>
+                मासिक प्रतिवेदन
+            </h1>
+
+            <h2>
+                ASHA द्वारा प्रस्तुत मासिक रिपोर्ट
+            </h2>
+
+            <p>
+                Monthly Reporting from ASHA and ANM
+            </p>
+
+        </div>
+
+
+        <!-- SUCCESS -->
+
+        <div class="success-message">
+
+            ✓ आपका मासिक प्रतिवेदन सफलतापूर्वक जमा हो गया है
+
+        </div>
+
+
+        <!-- =========================
+             BASIC INFORMATION
+        ========================= -->
+
+        <table class="info-table">
+
+            <tr>
+
+                <td class="info-label">
+                    ASHA का नाम
+                </td>
+
+                <td id="ashaName">
+                    -
+                </td>
+
+                <td class="info-label">
+                    केन्द्र संख्या
+                </td>
+
+                <td id="kendra">
+                    -
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td class="info-label">
+                    माह
+                </td>
+
+                <td id="month">
+                    -
+                </td>
+
+                <td class="info-label">
+                    वर्ष
+                </td>
+
+                <td id="year">
+                    -
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td class="info-label">
+                    प्रविष्टि दिनांक
+                </td>
+
+                <td id="entryDate">
+                    -
+                </td>
+
+                <td class="info-label">
+                    स्थिति
+                </td>
+
+                <td>
+                    Submitted ✓
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <!-- =========================
+             MAIN SERVICES
+        ========================= -->
+
+        <div class="section-title">
+            मुख्य स्वास्थ्य सेवाएं
+        </div>
+
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        विवरण
+                    </th>
+
+                    <th>
+                        कुल संख्या
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+                    <td>HBNC</td>
+                    <td class="number" id="hbnc">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>HBYC</td>
+                    <td class="number" id="hbyc">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>TB</td>
+                    <td class="number" id="tb">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>ANTRA</td>
+                    <td class="number" id="antra">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>कुल Operation</td>
+                    <td class="number" id="operation">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>कुल Copper-T</td>
+                    <td class="number" id="copperT">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>कुल Male Child</td>
+                    <td class="number" id="maleChild">0</td>
+                </tr>
+
+
+                <tr>
+                    <td>कुल Female Child</td>
+                    <td class="number" id="femaleChild">0</td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+        <!-- =========================
+             BIRTH DATA
+        ========================= -->
+
+        <div class="section-title">
+            जन्म एवं नवजात शिशु संबंधी विवरण
+        </div>
+
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        विवरण
+                    </th>
+
+                    <th>
+                        कुल संख्या
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        घर पर जन्में कुल जीवित बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="homeLiveBirth">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        घर पर जन्मे कमजोर नवजात बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="homeWeakNewborn">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        प्राइवेट अस्पताल में जन्मे कुल जीवित बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="privateLiveBirth">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        प्राइवेट अस्पताल में जन्मे कमजोर नवजात बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="privateWeakNewborn">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        सरकारी अस्पताल में जन्मे कुल जीवित बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="governmentLiveBirth">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        सरकारी अस्पताल में जन्मे कमजोर नवजात बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="governmentWeakNewborn">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        घर पर, प्राइवेट अस्पताल एवं सरकारी अस्पताल में जन्मे कुल जीवित बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="totalLiveBirth">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        जन्म के प्रथम दिन ASHA द्वारा गृह भेंट किए गए कुल जीवित बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="firstDayHomeVisit">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        घर पर, प्राइवेट अस्पताल एवं सरकारी अस्पताल में जन्मे कुल कमजोर नवजात बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="totalWeakNewborn">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        जन्म के पहले हफ्ते में ASHA/आंगनबाड़ी द्वारा गृह भेंट किए गए कुल नवजात शिशुओं की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="firstWeekHomeVisit">
+                        0
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+        <!-- =========================
+             WEAK CHILDREN
+        ========================= -->
+
+        <div class="section-title">
+            कमजोर बच्चों संबंधी विवरण
+        </div>
+
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        विवरण
+                    </th>
+
+                    <th>
+                        कुल संख्या
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        पिछले प्रतिवेदन माह में चिन्हित किये गए कुल कमजोर बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="previousWeakChildren">
+                        0
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        पिछले प्रतिवेदन माह में चिन्हित किए गए कुल कमजोर बच्चों में से जन्म के एक माह बाद जीवित बच्चों की संख्या
+                    </td>
+
+                    <td
+                        class="number"
+                        id="previousWeakAliveAfterMonth">
+                        0
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+        <!-- =========================
+             GRAND TOTAL
+        ========================= -->
+
+        <table class="total-table">
+
+            <tr>
+
+                <td>
+                    कुल योग
+                </td>
+
+                <td
+                    class="total-number"
+                    id="grandTotal">
+
+                    0
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <!-- =========================
+             FOOTER
+        ========================= -->
+
+        <div class="footer">
+
+            <div>
+
+                <b>
+                    ASHA द्वारा प्रस्तुत
+                </b>
+
+                <br><br>
+
+                ASHA का नाम:
+                <span id="footerName">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="signature">
+
+                <div class="signature-line">
+                    ANM के हस्ताक्षर
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        /* =========================================
+           GET SUBMITTED DATA
+        ========================================= */
+
+        let data = null;
+
+
+        try {
+
+            const savedData =
+                localStorage.getItem(
+                    "lastSubmissionData"
+                );
+
+
+            if (savedData) {
+
+                data = JSON.parse(savedData);
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Data loading error:",
+                error
+            );
+
+        }
+
+
+        /* =========================================
+           SHOW VALUE
+        ========================================= */
+
+        function showValue(
+            elementId,
+            fieldName
+        ) {
+
+            const element =
+                document.getElementById(
+                    elementId
+                );
+
+
+            if (!element) return;
+
+
+            let val =
+                data &&
+                data[fieldName];
+
+
+            if (
+                val === undefined ||
+                val === null ||
+                val === ""
+            ) {
+
+                val = 0;
+
+            }
+
+
+            element.textContent = val;
+
+        }
+
+
+        /* =========================================
+           LOAD REPORT
+        ========================================= */
+
+        function loadReport() {
+
+
+            if (!data) {
+
+                document.getElementById(
+                    "report"
+                ).innerHTML = `
+
+                    <div class="no-data">
+
+                        <h2>
+                            ⚠️ Report Data नहीं मिला
+                        </h2>
+
+                        <p>
+                            Submitted data उपलब्ध नहीं है।
+                        </p>
+
+                        <button
+                            class="dashboard-btn"
+                            onclick="goDashboard()">
+
+                            🏠 Dashboard
+
+                        </button>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            /* BASIC INFORMATION */
+
+            document.getElementById(
+                "ashaName"
+            ).textContent =
+                data.name || "-";
+
+
+            document.getElementById(
+                "kendra"
+            ).textContent =
+                data.kendraSankhya || "-";
+
+
+            document.getElementById(
+                "month"
+            ).textContent =
+                data.month || "-";
+
+
+            document.getElementById(
+                "year"
+            ).textContent =
+                data.year || "-";
+
+
+            document.getElementById(
+                "entryDate"
+            ).textContent =
+                data.entryDate || "-";
+
+
+            document.getElementById(
+                "footerName"
+            ).textContent =
+                data.name || "-";
+
+
+            /* OLD DATA */
+
+            showValue("hbnc", "hbnc");
+            showValue("hbyc", "hbyc");
+            showValue("tb", "tb");
+            showValue("antra", "antra");
+
+
+            /* NEW DATA */
+
+            showValue(
+                "operation",
+                "operation"
+            );
+
+            showValue(
+                "copperT",
+                "copperT"
+            );
+
+            showValue(
+                "maleChild",
+                "maleChild"
+            );
+
+            showValue(
+                "femaleChild",
+                "femaleChild"
+            );
+
+
+            showValue(
+                "homeLiveBirth",
+                "homeLiveBirth"
+            );
+
+            showValue(
+                "homeWeakNewborn",
+                "homeWeakNewborn"
+            );
+
+
+            showValue(
+                "privateLiveBirth",
+                "privateLiveBirth"
+            );
+
+            showValue(
+                "privateWeakNewborn",
+                "privateWeakNewborn"
+            );
+
+
+            showValue(
+                "governmentLiveBirth",
+                "governmentLiveBirth"
+            );
+
+            showValue(
+                "governmentWeakNewborn",
+                "governmentWeakNewborn"
+            );
+
+
+            showValue(
+                "totalLiveBirth",
+                "totalLiveBirth"
+            );
+
+            showValue(
+                "firstDayHomeVisit",
+                "firstDayHomeVisit"
+            );
+
+
+            showValue(
+                "totalWeakNewborn",
+                "totalWeakNewborn"
+            );
+
+            showValue(
+                "firstWeekHomeVisit",
+                "firstWeekHomeVisit"
+            );
+
+
+            showValue(
+                "previousWeakChildren",
+                "previousWeakChildren"
+            );
+
+            showValue(
+                "previousWeakAliveAfterMonth",
+                "previousWeakAliveAfterMonth"
+            );
+
+
+            /* =====================================
+               GRAND TOTAL
+            ===================================== */
+
+            let total =
+                data.grandTotal;
+
+
+            /*
+               अगर grandTotal पहले से मौजूद है
+               तो वही दिखाएँ।
+            */
+
+            if (
+                total === undefined ||
+                total === null ||
+                total === ""
+            ) {
+
+
+                const fields = [
+
+                    "hbnc",
+                    "hbyc",
+                    "tb",
+                    "antra",
+
+                    "operation",
+                    "copperT",
+                    "maleChild",
+                    "femaleChild",
+
+                    "homeLiveBirth",
+                    "homeWeakNewborn",
+
+                    "privateLiveBirth",
+                    "privateWeakNewborn",
+
+                    "governmentLiveBirth",
+                    "governmentWeakNewborn",
+
+                    "totalLiveBirth",
+                    "firstDayHomeVisit",
+
+                    "totalWeakNewborn",
+                    "firstWeekHomeVisit",
+
+                    "previousWeakChildren",
+                    "previousWeakAliveAfterMonth"
+
+                ];
+
+
+                total =
+                    fields.reduce(
+                        function (
+                            sum,
+                            field
+                        ) {
+
+                            return sum +
+                                (
+                                    Number(
+                                        data[field]
+                                    ) || 0
+                                );
+
+                        },
+                        0
+                    );
+
+            }
+
+
+            document.getElementById(
+                "grandTotal"
+            ).textContent = total;
+
+        }
+
+
+        /* =========================================
+           DOWNLOAD AS JPG PHOTO
+        ========================================= */
+
+        async function downloadPhoto() {
+
+
+            if (!data) {
+
+                alert(
+                    "Report data उपलब्ध नहीं है।"
+                );
+
+                return;
+
+            }
+
+
+            const report =
+                document.getElementById(
+                    "report"
+                );
+
+
+            try {
+
+
+                /*
+                   थोड़ी देर wait
+                   ताकि पूरा report render हो जाए
+                */
+
+                await new Promise(
+                    function(resolve) {
+
+                        setTimeout(
+                            resolve,
+                            500
+                        );
+
+                    }
+                );
+
+
+                const canvas =
+                    await html2canvas(
+                        report,
+                        {
+
+                            scale: 2.5,
+
+                            backgroundColor:
+                                "#ffffff",
+
+                            useCORS: true,
+
+                            allowTaint: false,
+
+                            logging: false,
+
+                            scrollX: 0,
+
+                            scrollY: -window.scrollY
+
+                        }
+                    );
+
+
+                /*
+                   JPG IMAGE
+                */
+
+                const image =
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        0.95
+                    );
+
+
+                /*
+                   FILE NAME
+                */
+
+                const name =
+                    String(
+                        data.name ||
+                        "ASHA"
+                    )
+                    .replace(
+                        /[^a-zA-Z0-9\u0900-\u097F]/g,
+                        "_"
+                    );
+
+
+                const month =
+                    String(
+                        data.month ||
+                        "Month"
+                    );
+
+
+                const year =
+                    String(
+                        data.year ||
+                        "Year"
+                    );
+
+
+                const filename =
+                    `Monthly_Report_${name}_${month}_${year}.jpg`;
+
+
+                /*
+                   DOWNLOAD
+                */
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href = image;
+
+                link.download =
+                    filename;
+
+
+                document.body.appendChild(
+                    link
+                );
+
+
+                link.click();
+
+
+                document.body.removeChild(
+                    link
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Photo download error:",
+                    error
+                );
+
+
+                alert(
+                    "Report photo बनाने में समस्या हुई। कृपया दोबारा कोशिश करें।"
+                );
+
+            }
+
+        }
+
+
+        /* =========================================
+           DASHBOARD
+        ========================================= */
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadReport();
+
+    </script>
+
+</body>
+
+</html>

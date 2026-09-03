@@ -1371,6 +1371,19 @@
 
             if (result.success) {
 
+                const submissionData = {
+                    ...result.data,
+                    name:
+                        result.data.ashaName || ashaUser.name,
+                    hbyc:
+                        result.data.hbvc ?? value("hbyc")
+                };
+
+                localStorage.setItem(
+                    "lastSubmissionData",
+                    JSON.stringify(submissionData)
+                );
+
                 alert(
                     "Data Submitted Successfully!\n\nडेटा सफलतापूर्वक जमा हो गया।"
                 );
