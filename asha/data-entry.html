@@ -1371,12 +1371,31 @@
 
             if (result.success) {
 
+                const responseData =
+                    result.data || {};
+
                 const submissionData = {
-                    ...result.data,
+                    ...responseData,
+                    ashaId:
+                        responseData.ashaId || ashaUser.id,
                     name:
-                        result.data.ashaName || ashaUser.name,
+                        responseData.ashaName || ashaUser.name,
+                    kendraSankhya:
+                        responseData.kendraSankhya || ashaUser.kendraSankhya,
+                    month:
+                        responseData.month || month,
+                    year:
+                        responseData.year || year,
+                    entryDate:
+                        responseData.entryDate || value("entryDate"),
+                    hbnc:
+                        responseData.hbnc ?? value("hbnc"),
                     hbyc:
-                        result.data.hbvc ?? value("hbyc")
+                        responseData.hbvc ?? value("hbyc"),
+                    tb:
+                        responseData.tb ?? value("tb"),
+                    antra:
+                        responseData.antra ?? value("antra")
                 };
 
                 localStorage.setItem(
