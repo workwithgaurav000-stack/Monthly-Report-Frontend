@@ -5,8 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Monthly Data Entry | PARWA</title>
 
@@ -276,6 +275,7 @@
         मासिक डेटा प्रविष्टि
     </div>
 
+
     <!-- ASHA INFORMATION -->
 
     <div class="info-box">
@@ -314,6 +314,8 @@
     <!-- FORM -->
 
     <form id="dataForm">
+
+        <!-- MONTH / YEAR -->
 
         <div class="info-row">
 
@@ -358,9 +360,7 @@
                     Year / वर्ष
                 </label>
 
-                <select id="year" required>
-
-                </select>
+                <select id="year" required></select>
 
                 <div class="help">
                     डेटा का वर्ष चुनें।
@@ -394,7 +394,7 @@
         </div>
 
 
-        <!-- HBNC -->
+        <!-- EXISTING HBNC -->
 
         <div class="field">
 
@@ -411,36 +411,34 @@
 
             <div class="help">
                 HBNC की कुल संख्या दर्ज करें।
-                Enter the total number of HBNC.
             </div>
 
         </div>
 
 
-        <!-- HBVC -->
+        <!-- EXISTING HBYC -->
 
         <div class="field">
 
             <label>
-                Total No. of HBVC
+                Total No. of HBYC
             </label>
 
             <input
                 type="number"
-                id="hbvc"
+                id="hbyc"
                 min="0"
                 required
             >
 
             <div class="help">
-                HBVC की कुल संख्या दर्ज करें।
-                Enter the total number of HBVC.
+                HBYC की कुल संख्या दर्ज करें।
             </div>
 
         </div>
 
 
-        <!-- TB -->
+        <!-- EXISTING TB -->
 
         <div class="field">
 
@@ -457,13 +455,12 @@
 
             <div class="help">
                 TB मरीजों की कुल संख्या दर्ज करें।
-                Enter the total number of TB patients.
             </div>
 
         </div>
 
 
-        <!-- ANTRA -->
+        <!-- EXISTING ANTRA -->
 
         <div class="field">
 
@@ -480,8 +477,265 @@
 
             <div class="help">
                 ANTRA की कुल संख्या दर्ज करें।
-                Enter the total number of ANTRA.
             </div>
+
+        </div>
+
+
+        <!-- NEW FIELDS -->
+
+        <div class="field">
+
+            <label>
+                Total no. of Operation
+            </label>
+
+            <input
+                type="number"
+                id="operation"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Total no. of Copper T
+            </label>
+
+            <input
+                type="number"
+                id="copperT"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Total no. of Male Child
+            </label>
+
+            <input
+                type="number"
+                id="maleChild"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Total no. of Female Child
+            </label>
+
+            <input
+                type="number"
+                id="femaleChild"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                घर पर जन्में कुल जीवित बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="homeLiveBirth"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                घर पर जन्मे कमजोर नवजात बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="homeWeakNewborn"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                प्राइवेट अस्पताल में जन्मे कुल जीवित बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="privateLiveBirth"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                प्राइवेट अस्पताल में जन्मे कमजोर नवजात बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="privateWeakNewborn"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                सरकारी अस्पताल में जन्मे कुल जीवित बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="governmentLiveBirth"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                सरकारी अस्पताल में जन्मे कमजोर नवजात बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="governmentWeakNewborn"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                घर पर, प्राइवेट अस्पताल एवं सरकारी अस्पताल में जन्मे कुल जीवित बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="totalLiveBirth"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                जन्म के प्रथम दिन ASHA द्वारा गृह भेंट किए गए कुल जीवित बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="firstDayHomeVisit"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                घर पर, प्राइवेट अस्पताल एवं सरकारी अस्पताल में जन्मे कुल कमजोर नवजात बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="totalWeakNewborn"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                घर/प्राइवेट/सरकारी अस्पताल में जन्मे कुल नवजात शिशुओं की संख्या जिसे आशा/आंगनबाड़ी द्वारा जन्म के पहले हफ्ते में गृह भेंट किया गया
+            </label>
+
+            <input
+                type="number"
+                id="firstWeekHomeVisit"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                पिछले प्रतिवेदन माह में चिन्हित किये गए कुल कमजोर बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="previousWeakChildren"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                पिछले प्रतिवेदन माह में चिन्हित किए गए कुल कमजोर बच्चों में से जन्म के एक माह बाद जीवित बच्चों की संख्या
+            </label>
+
+            <input
+                type="number"
+                id="previousWeakAliveAfterMonth"
+                min="0"
+                required
+            >
 
         </div>
 
@@ -530,101 +784,133 @@
 
 
         <div class="review-row">
-
-            <strong>
-                ASHA Name:
-            </strong>
-
+            <strong>ASHA Name:</strong>
             <span id="reviewName"></span>
-
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                Kendra Sankhya:
-            </strong>
-
+            <strong>Kendra Sankhya:</strong>
             <span id="reviewKendra"></span>
-
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                Month:
-            </strong>
-
+            <strong>Month:</strong>
             <span id="reviewMonth"></span>
-
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                Year:
-            </strong>
-
+            <strong>Year:</strong>
             <span id="reviewYear"></span>
-
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                Date:
-            </strong>
-
+            <strong>Date:</strong>
             <span id="reviewDate"></span>
-
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                HBNC:
-            </strong>
-
+            <strong>HBNC:</strong>
             <span id="reviewHBNC"></span>
-
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                HBVC:
-            </strong>
-
-            <span id="reviewHBVC"></span>
-
+            <strong>HBYC:</strong>
+            <span id="reviewHBYC"></span>
         </div>
 
-
         <div class="review-row">
-
-            <strong>
-                TB Patients:
-            </strong>
-
+            <strong>TB Patients:</strong>
             <span id="reviewTB"></span>
-
         </div>
 
+        <div class="review-row">
+            <strong>ANTRA:</strong>
+            <span id="reviewANTRA"></span>
+        </div>
 
         <div class="review-row">
+            <strong>Total no. of Operation:</strong>
+            <span id="reviewOperation"></span>
+        </div>
 
-            <strong>
-                ANTRA:
-            </strong>
+        <div class="review-row">
+            <strong>Total no. of Copper T:</strong>
+            <span id="reviewCopperT"></span>
+        </div>
 
-            <span id="reviewANTRA"></span>
+        <div class="review-row">
+            <strong>Total no. of Male Child:</strong>
+            <span id="reviewMaleChild"></span>
+        </div>
 
+        <div class="review-row">
+            <strong>Total no. of Female Child:</strong>
+            <span id="reviewFemaleChild"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>घर पर जन्में कुल जीवित बच्चों:</strong>
+            <span id="reviewHomeLiveBirth"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>घर पर जन्मे कमजोर नवजात:</strong>
+            <span id="reviewHomeWeakNewborn"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>प्राइवेट अस्पताल में कुल जीवित बच्चे:</strong>
+            <span id="reviewPrivateLiveBirth"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>प्राइवेट अस्पताल में कमजोर नवजात:</strong>
+            <span id="reviewPrivateWeakNewborn"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>सरकारी अस्पताल में कुल जीवित बच्चे:</strong>
+            <span id="reviewGovernmentLiveBirth"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>सरकारी अस्पताल में कमजोर नवजात:</strong>
+            <span id="reviewGovernmentWeakNewborn"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>कुल जीवित बच्चे:</strong>
+            <span id="reviewTotalLiveBirth"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>प्रथम दिन गृह भेंट:</strong>
+            <span id="reviewFirstDayHomeVisit"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>कुल कमजोर नवजात:</strong>
+            <span id="reviewTotalWeakNewborn"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>पहले हफ्ते की गृह भेंट:</strong>
+            <span id="reviewFirstWeekHomeVisit"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>पिछले माह के कमजोर बच्चे:</strong>
+            <span id="reviewPreviousWeakChildren"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>एक माह बाद जीवित बच्चे:</strong>
+            <span id="reviewPreviousWeakAliveAfterMonth"></span>
+        </div>
+
+        <div class="review-row">
+            <strong>कुल योग:</strong>
+            <span id="reviewGrandTotal"></span>
         </div>
 
 
@@ -658,9 +944,7 @@
     // ==========================================
 
     const loggedIn =
-        localStorage.getItem(
-            "ashaLoggedIn"
-        );
+        localStorage.getItem("ashaLoggedIn");
 
     if (loggedIn !== "true") {
 
@@ -675,9 +959,7 @@
     // ==========================================
 
     const userJSON =
-        localStorage.getItem(
-            "ashaUser"
-        );
+        localStorage.getItem("ashaUser");
 
     let ashaUser = null;
 
@@ -709,15 +991,10 @@
     // DISPLAY ASHA INFORMATION
     // ==========================================
 
-    document.getElementById(
-        "ashaName"
-    ).textContent =
+    document.getElementById("ashaName").textContent =
         ashaUser.name || "-";
 
-
-    document.getElementById(
-        "kendraSankhya"
-    ).textContent =
+    document.getElementById("kendraSankhya").textContent =
         ashaUser.kendraSankhya || "-";
 
 
@@ -729,13 +1006,9 @@
         new Date();
 
     const formattedDate =
-        today.toLocaleDateString(
-            "en-IN"
-        );
+        today.toLocaleDateString("en-IN");
 
-    document.getElementById(
-        "entryDate"
-    ).value =
+    document.getElementById("entryDate").value =
         formattedDate;
 
 
@@ -744,9 +1017,7 @@
     // ==========================================
 
     const yearSelect =
-        document.getElementById(
-            "year"
-        );
+        document.getElementById("year");
 
     const currentYear =
         today.getFullYear();
@@ -758,28 +1029,29 @@
     ) {
 
         const option =
-            document.createElement(
-                "option"
-            );
+            document.createElement("option");
 
-        option.value =
-            year;
+        option.value = year;
+        option.textContent = year;
 
-        option.textContent =
-            year;
+        if (year === currentYear) {
 
-        if (
-            year === currentYear
-        ) {
-
-            option.selected =
-                true;
+            option.selected = true;
 
         }
 
-        yearSelect.appendChild(
-            option
-        );
+        yearSelect.appendChild(option);
+
+    }
+
+
+    // ==========================================
+    // HELPER FUNCTION
+    // ==========================================
+
+    function value(id) {
+
+        return document.getElementById(id).value || "0";
 
     }
 
@@ -791,9 +1063,7 @@
     function showReview() {
 
         const form =
-            document.getElementById(
-                "dataForm"
-            );
+            document.getElementById("dataForm");
 
         if (!form.checkValidity()) {
 
@@ -804,83 +1074,128 @@
         }
 
 
-        document.getElementById(
-            "reviewName"
-        ).textContent =
-            ashaUser.name;
+        document.getElementById("reviewName").textContent =
+            ashaUser.name || "-";
+
+        document.getElementById("reviewKendra").textContent =
+            ashaUser.kendraSankhya || "-";
+
+        document.getElementById("reviewMonth").textContent =
+            value("month");
+
+        document.getElementById("reviewYear").textContent =
+            value("year");
+
+        document.getElementById("reviewDate").textContent =
+            value("entryDate");
 
 
-        document.getElementById(
-            "reviewKendra"
-        ).textContent =
-            ashaUser.kendraSankhya;
+        document.getElementById("reviewHBNC").textContent =
+            value("hbnc");
+
+        document.getElementById("reviewHBYC").textContent =
+            value("hbyc");
+
+        document.getElementById("reviewTB").textContent =
+            value("tb");
+
+        document.getElementById("reviewANTRA").textContent =
+            value("antra");
 
 
-        document.getElementById(
-            "reviewMonth"
-        ).textContent =
-            document.getElementById(
-                "month"
-            ).value;
+        document.getElementById("reviewOperation").textContent =
+            value("operation");
+
+        document.getElementById("reviewCopperT").textContent =
+            value("copperT");
+
+        document.getElementById("reviewMaleChild").textContent =
+            value("maleChild");
+
+        document.getElementById("reviewFemaleChild").textContent =
+            value("femaleChild");
+
+        document.getElementById("reviewHomeLiveBirth").textContent =
+            value("homeLiveBirth");
+
+        document.getElementById("reviewHomeWeakNewborn").textContent =
+            value("homeWeakNewborn");
+
+        document.getElementById("reviewPrivateLiveBirth").textContent =
+            value("privateLiveBirth");
+
+        document.getElementById("reviewPrivateWeakNewborn").textContent =
+            value("privateWeakNewborn");
+
+        document.getElementById("reviewGovernmentLiveBirth").textContent =
+            value("governmentLiveBirth");
+
+        document.getElementById("reviewGovernmentWeakNewborn").textContent =
+            value("governmentWeakNewborn");
+
+        document.getElementById("reviewTotalLiveBirth").textContent =
+            value("totalLiveBirth");
+
+        document.getElementById("reviewFirstDayHomeVisit").textContent =
+            value("firstDayHomeVisit");
+
+        document.getElementById("reviewTotalWeakNewborn").textContent =
+            value("totalWeakNewborn");
+
+        document.getElementById("reviewFirstWeekHomeVisit").textContent =
+            value("firstWeekHomeVisit");
+
+        document.getElementById("reviewPreviousWeakChildren").textContent =
+            value("previousWeakChildren");
+
+        document.getElementById("reviewPreviousWeakAliveAfterMonth").textContent =
+            value("previousWeakAliveAfterMonth");
 
 
-        document.getElementById(
-            "reviewYear"
-        ).textContent =
-            document.getElementById(
-                "year"
-            ).value;
+        // ==========================================
+        // TOTAL
+        // ==========================================
+
+        const numbers = [
+
+            Number(value("hbnc")),
+            Number(value("hbyc")),
+            Number(value("tb")),
+            Number(value("antra")),
+            Number(value("operation")),
+            Number(value("copperT")),
+            Number(value("maleChild")),
+            Number(value("femaleChild")),
+            Number(value("homeLiveBirth")),
+            Number(value("homeWeakNewborn")),
+            Number(value("privateLiveBirth")),
+            Number(value("privateWeakNewborn")),
+            Number(value("governmentLiveBirth")),
+            Number(value("governmentWeakNewborn")),
+            Number(value("totalLiveBirth")),
+            Number(value("firstDayHomeVisit")),
+            Number(value("totalWeakNewborn")),
+            Number(value("firstWeekHomeVisit")),
+            Number(value("previousWeakChildren")),
+            Number(value("previousWeakAliveAfterMonth"))
+
+        ];
+
+        const grandTotal =
+            numbers.reduce(
+                (sum, num) => sum + num,
+                0
+            );
+
+        document.getElementById("reviewGrandTotal").textContent =
+            grandTotal;
 
 
-        document.getElementById(
-            "reviewDate"
-        ).textContent =
-            document.getElementById(
-                "entryDate"
-            ).value;
-
-
-        document.getElementById(
-            "reviewHBNC"
-        ).textContent =
-            document.getElementById(
-                "hbnc"
-            ).value;
-
-
-        document.getElementById(
-            "reviewHBVC"
-        ).textContent =
-            document.getElementById(
-                "hbvc"
-            ).value;
-
-
-        document.getElementById(
-            "reviewTB"
-        ).textContent =
-            document.getElementById(
-                "tb"
-            ).value;
-
-
-        document.getElementById(
-            "reviewANTRA"
-        ).textContent =
-            document.getElementById(
-                "antra"
-            ).value;
-
-
-        document.getElementById(
-            "review"
-        ).style.display =
+        document.getElementById("review").style.display =
             "block";
 
 
-        document.getElementById(
-            "review"
-        ).scrollIntoView({
+        document.getElementById("review").scrollIntoView({
             behavior: "smooth"
         });
 
@@ -893,9 +1208,7 @@
 
     function editData() {
 
-        document.getElementById(
-            "review"
-        ).style.display =
+        document.getElementById("review").style.display =
             "none";
 
         window.scrollTo({
@@ -916,40 +1229,10 @@
     async function submitData() {
 
         const month =
-            document.getElementById(
-                "month"
-            ).value;
+            value("month");
 
         const year =
-            document.getElementById(
-                "year"
-            ).value;
-
-        const hbnc =
-            document.getElementById(
-                "hbnc"
-            ).value;
-
-        const hbvc =
-            document.getElementById(
-                "hbvc"
-            ).value;
-
-        const tb =
-            document.getElementById(
-                "tb"
-            ).value;
-
-        const antra =
-            document.getElementById(
-                "antra"
-            ).value;
-
-        const entryDate =
-            document.getElementById(
-                "entryDate"
-            ).value;
-
+            value("year");
 
         if (!month) {
 
@@ -965,12 +1248,9 @@
         // Disable button while submitting
 
         const button =
-            document.querySelector(
-                ".confirm"
-            );
+            document.querySelector(".confirm");
 
-        button.disabled =
-            true;
+        button.disabled = true;
 
         button.textContent =
             "Submitting...";
@@ -1010,20 +1290,74 @@
                                 year:
                                     year,
 
+                                entryDate:
+                                    value("entryDate"),
+
+
+                                // EXISTING DATA
+
                                 hbnc:
-                                    hbnc,
+                                    value("hbnc"),
 
                                 hbvc:
-                                    hbvc,
+                                    value("hbyc"),
 
                                 tb:
-                                    tb,
+                                    value("tb"),
 
                                 antra:
-                                    antra,
+                                    value("antra"),
 
-                                entryDate:
-                                    entryDate
+
+                                // NEW DATA
+
+                                operation:
+                                    value("operation"),
+
+                                copperT:
+                                    value("copperT"),
+
+                                maleChild:
+                                    value("maleChild"),
+
+                                femaleChild:
+                                    value("femaleChild"),
+
+                                homeLiveBirth:
+                                    value("homeLiveBirth"),
+
+                                homeWeakNewborn:
+                                    value("homeWeakNewborn"),
+
+                                privateLiveBirth:
+                                    value("privateLiveBirth"),
+
+                                privateWeakNewborn:
+                                    value("privateWeakNewborn"),
+
+                                governmentLiveBirth:
+                                    value("governmentLiveBirth"),
+
+                                governmentWeakNewborn:
+                                    value("governmentWeakNewborn"),
+
+                                totalLiveBirth:
+                                    value("totalLiveBirth"),
+
+                                firstDayHomeVisit:
+                                    value("firstDayHomeVisit"),
+
+                                totalWeakNewborn:
+                                    value("totalWeakNewborn"),
+
+                                firstWeekHomeVisit:
+                                    value("firstWeekHomeVisit"),
+
+                                previousWeakChildren:
+                                    value("previousWeakChildren"),
+
+                                previousWeakAliveAfterMonth:
+                                    value("previousWeakAliveAfterMonth")
 
                             })
 
